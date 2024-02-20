@@ -1,33 +1,27 @@
 from django.core.management.base import BaseCommand
 from mypages.models import Order, Client, Product  
+import random
 
 
 class Command(BaseCommand):
     help = 'Creates a new order'
 
-    def add_arguments(self, parser):
-        parser.add_argument('customer_id', type=int, help='Customer ID')
-        parser.add_argument('product_ids', nargs='+', type=int, help='List of product IDs')
-
     def handle(self, *args, **options):
-        customer = Client.objects.get(id=options['customer_id'])
-        
-        # Инициализация переменной для общей цены
-        total_price = 0  
+        # Select a random customer
+        customer = Client.objects.order_by('?').first()
 
-        # Подсчет общей цены на основе выбранных продуктов
-        for product_id in options['product_ids']:
-            product = Product.objects.get(id=product_id)
-            total_price += product.price  # Суммирование цен продуктов
+        # Select a random sample of products
+        products = list(Product.objects.order_by('?')[:random.randint(1, Product.objects.count())])
 
-        # Создание заказа с вычисленной общей ценой
+        total_price = sum(product.price for product in products)
+
+        # Create the order
         order = Order.objects.create(customer=customer, total_price=total_price)
 
-        # Добавление продуктов к заказу
-        for product_id in options['product_ids']:
-            order.products.add(product_id)
+        # Add products to the order
+        for product in products:
+            order.products.add(product)
         
         order.save()
-
 
         self.stdout.write(f'{order}')
