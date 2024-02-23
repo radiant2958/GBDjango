@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактирование товара</title>
+</head>
+<body>
+    <h2>Редактирование товара</h2>
+    <form method="get">
+        {{ form.product_select }}
+        <input type="submit" value="Выбрать" />
+    </form>
+    
+    <form method="post">
+        {% csrf_token %}
+        <p>{{ form.name.label_tag }} {{ form.name }}</p>
+        <p>{{ form.description.label_tag }} {{ form.description }}</p>
+        <p>{{form.price.label_tag}} {{form.price}}</p>
+        <p>{{form.quantity.label_tag}} {{form.quantity}}</p>
+        
+        <input type="submit" value="Сохранить" />
+    </form>
+</body>
+</html>
+
+
