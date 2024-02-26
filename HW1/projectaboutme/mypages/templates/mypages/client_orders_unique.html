@@ -1,0 +1,11 @@
+{% extends 'mypages/client_all_ordeers.html' %}
+{% block content %}
+<title>Уникальные продукты клиента</title>
+<h1>Уникальные товары клиента: {{ client.name }} за последние {{ period }} дней</h1>
+<ul>
+    {% for item in products_with_dates %}
+        <li>{{ item.product.name }} - ${{ item.product.price }} (Заказан: {{ item.date_ordered }})</li>
+    {% empty %}
+        <li>За данный период товары не найдены.</li>
+    {% endfor %}
+{% endblock %}

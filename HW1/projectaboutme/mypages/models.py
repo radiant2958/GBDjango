@@ -16,7 +16,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     quantity = models.IntegerField() 
     date_add_product = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     
+   
+
     def __str__(self):
         return (f"Name: {self.name}, Price: ${self.price}, "
                 f"Quantity: {self.quantity}, Added on: {self.date_add_product.strftime('%Y-%m-%d')}")

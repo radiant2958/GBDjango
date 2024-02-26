@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Все заказы клиента</title>
+</head>
+<body>
+    {% block content %}
+    <h1>Клиент: {{ client.name }}</h1>
+    {% for order in orders %}
+        <h2>Заказ №{{ order.id }} от {{ order.date_ordered }}</h2>
+        <ul>
+            {% for product in order.products.all %}
+                <li>{{ product.name }} - ${{ product.price }}</li>
+            {% endfor %}
+        </ul>
+        <p>Общая сумма заказа: ${{ order.total_price }}</p>
+    {% empty %}
+        <p>Заказов пока нет.</p>
+    {% endfor %}
+    {% endblock %}
+</body>
+</html>
