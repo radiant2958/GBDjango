@@ -20,6 +20,7 @@ class Product(models.Model):
     
    
 
+
     def __str__(self):
         return (f"Name: {self.name}, Price: ${self.price}, "
                 f"Quantity: {self.quantity}, Added on: {self.date_add_product.strftime('%Y-%m-%d')}")
