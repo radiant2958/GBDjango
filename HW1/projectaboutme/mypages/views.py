@@ -65,3 +65,6 @@ def product_creat_form(request):
     else:
         form = ProductForm()
     return render(request, 'mypages/product_creat_form.html', {'form': form})
+
+def main_page(request):
+    return render(request,'mypages/main_page.html')
